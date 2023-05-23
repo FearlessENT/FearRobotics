@@ -1,0 +1,286 @@
+<?xml version="1.0"?>
+<robot name="robot_arm">
+
+    <!-- Define the base fixed link -->
+    <link name="base_fixed"/>
+  
+
+    <!-- Define the base link -->
+    <link name="base_link">
+        <visual>
+            <origin xyz="0 0 0"/> <!-- Adjust the position of the link to align the joint -->
+            <geometry>
+                <box size="0.2 0.2 0.2"/>
+            </geometry>
+            <material name="base_color">
+                <color rgba="1 0 0 1"/> <!-- Set the color to red -->
+            </material>
+        </visual>
+        <collision>
+            <geometry>
+                <box size="0.2 0.2 0.2"/>
+            </geometry>
+        </collision>
+        <visual>
+            <origin xyz="0 0 0"/> <!-- Add a visual marker for the joint position -->
+            <geometry>
+                <cylinder radius="0.01" length="0.02"/> <!-- Choose a geometry to represent the joint position -->
+            </geometry>
+        </visual>
+    </link>
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Define the shoulder link -->
+    <link name="shoulder_link">
+        <visual>
+            <origin xyz="0 0 0.05"/> <!-- Adjust the position of the link to align the joint -->
+            <geometry>
+                <box size="0.1 0.1 0.1"/>
+            </geometry>
+            
+            <material name="shoulder_color">
+                <color rgba="0 1 0 0.9"/> <!-- Set the color to green -->
+            </material>
+        </visual>
+        
+        <collision>
+            <geometry>
+                <box size="0.1 0.1 0.1"/>
+            </geometry>
+        </collision>
+        <visual>
+            <origin xyz="0 0 0"/> <!-- Add a visual marker for the joint position -->
+            <geometry>
+                <cylinder radius="0.01" length="0.02"/> <!-- Choose a geometry to represent the joint position -->
+            </geometry>
+        </visual>
+    </link>
+
+
+
+
+
+
+
+
+
+    <!-- Define the elbow link -->
+    <link name="elbow_link">
+        <visual>
+            <origin xyz="0 0 0.2"/> <!-- Adjust the position of the link to align the joint -->
+            <geometry>
+                <box size="0.1 0.1 0.4"/>
+            </geometry>
+            
+            <material name="elbow_color">
+                <color rgba="0 0 1 0.9"/> <!-- Set the color to blue -->
+            </material>
+        </visual>
+        <collision>
+            <geometry>
+                <box size="0.1 0.1 0.4"/>
+            </geometry>
+        </collision>
+
+        <visual>
+            <origin xyz="0 0 0"/> <!-- Add a visual marker for the joint position -->
+            <geometry>
+                <cylinder radius="0.01" length="0.02"/> <!-- Choose a geometry to represent the joint position -->
+            </geometry>
+        </visual>
+    </link>
+
+
+
+
+
+
+
+
+
+    <!-- Define the forearm link -->
+    <link name="forearm_link">
+        <visual>
+            <origin xyz="0 0 0.2"/> <!-- Adjust the position of the link to align the joint -->
+            <geometry>
+                <box size="0.1 0.1 0.4"/>
+            </geometry>
+            <origin xyz="0 0 0"/> <!-- Add a visual marker for the joint position -->
+            <geometry>
+                <sphere radius="10.01"/> <!-- Choose a geometry to represent the joint position -->
+            </geometry>
+            <material name="forearm_color">
+                <color rgba="1 1 0 0.9"/> <!-- Set the color to yellow -->
+            </material>
+        </visual>
+        <collision>
+            <geometry>
+                <box size="0.1 0.1 0.4"/>
+            </geometry>
+        </collision>
+        <visual>
+            <origin xyz="0 0 0"/> <!-- Add a visual marker for the joint position -->
+            <geometry>
+                <cylinder radius="0.01" length="0.02"/> <!-- Choose a geometry to represent the joint position -->
+            </geometry>
+        </visual>
+    </link>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Define the wrist link -->
+    <link name="wrist_link">
+        <visual>
+            <origin xyz="0 0 0.05"/> <!-- Adjust the position of the link to align the joint -->
+            <geometry>
+                <box size="0.1 0.1 0.1"/>
+            </geometry>
+            <material name="wrist_color">
+                <color rgba="1 0 1 0.9"/> <!-- Set the color to magenta -->
+            </material>
+        </visual>
+        <collision>
+            <geometry>
+                <box size="0.1 0.2 0.1"/>
+            </geometry>
+        </collision>
+        <visual>
+            <origin xyz="0 0 0"/> <!-- Add a visual marker for the joint position -->
+            <geometry>
+                <cylinder radius="0.01" length="0.02"/> <!-- Choose a geometry to represent the joint position -->
+            </geometry>
+        </visual>
+    </link>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Define the end effector link -->
+    <link name="end_effector_link">
+        <visual>
+            <origin xyz="0 0 0.05"/> <!-- Adjust the position of the link to align the joint -->
+            <geometry>
+                <box size="0.1 0.1 0.1"/>
+            </geometry>
+            <material name="end_effector_color">
+                <color rgba="0 1 1 0.9"/> <!-- Set the color to cyan -->
+            </material>
+        </visual>
+        <collision>
+            <geometry>
+                <box size="0.1 0.1 0.1"/>
+            </geometry>
+        </collision>
+        <visual>
+            <origin xyz="0 0 0"/> <!-- Add a visual marker for the joint position -->
+            <geometry>
+                <cylinder radius="0.01" length="0.02"/> <!-- Choose a geometry to represent the joint position -->
+            </geometry>
+        </visual>
+    </link>
+
+
+
+
+
+
+
+
+  <!-- Define the base fixed joint -->
+  <joint name="base_fixed_joint" type="fixed">
+    <parent link="base_fixed"/>
+    <child link="base_link"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+  </joint>
+
+  <!-- Define the base joint -->
+  <joint name="base_joint" type="revolute">
+    <parent link="base_link"/>
+    <child link="shoulder_link"/>
+    <axis xyz="0 0 1"/>
+    <origin rpy="0 0 0" xyz="0 0 0.1"/>
+    <limit lower="-3.14159" upper="3.14159" effort="300" velocity="5.0"/>
+  </joint>
+
+  <!-- Define the shoulder joint -->
+  <joint name="shoulder_joint" type="revolute">
+    <parent link="shoulder_link"/>
+    <child link="elbow_link"/>
+    <axis xyz="0 1 0"/>
+    <origin rpy="0 0 0" xyz="0 0 0.11"/>
+    <limit lower="-1.2217304764" upper="1.2217304764" effort="300" velocity="5.0"/>
+  </joint>
+
+  <!-- Define the elbow joint -->
+  <joint name="elbow_joint" type="revolute">
+    <parent link="elbow_link"/>
+    <child link="forearm_link"/>
+    <axis xyz="0 1 0"/>
+    <origin rpy="0 0 0" xyz="0 0 0.4"/>
+    <limit lower="-1.9198621772" upper="1.9198621772" effort="300" velocity="5.0"/>
+  </joint>
+
+  <!-- Define the forearm joint -->
+  <joint name="forearm_joint" type="revolute">
+    <parent link="forearm_link"/>
+    <child link="wrist_link"/>
+    <axis xyz="0 1 0"/>
+    <origin rpy="0 0 0" xyz="0 0 0.4"/>
+    <limit lower="-1.5708" upper="1.5708" effort="300" velocity="5.0"/>
+  </joint>
+
+  <!-- Define the wrist joint -->
+  <joint name="wrist_joint" type="revolute">
+    <parent link="wrist_link"/>
+    <child link="end_effector_link"/>
+    <axis xyz="0 0 1"/>
+    <origin rpy="0 0 0" xyz="0 0 0.1"/>
+    <limit lower="-3.14159" upper="3.14159" effort="300" velocity="5.0"/>
+  </joint>
+
+</robot>
+
+
